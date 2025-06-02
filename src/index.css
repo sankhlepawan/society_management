@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+#main-outlet {
+    @apply bg-gray-100 dark:bg-gray-900;
+    background-image: url("/60-linen.png");
+    background-repeat: repeat;
+}
