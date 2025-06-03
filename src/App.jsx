@@ -1,7 +1,16 @@
 import "./App.css";
 import { ToastContainer } from "react-toastify";
+import { RequireAuth } from "./components";
 
-import { Home, Login, Request, Noticeboard } from "./pages";
+import {
+  Home,
+  Login,
+  MaintenancePage,
+  Noticeboard,
+  BillsPage,
+  ProfilePage,
+  EmergencyContactsPage,
+} from "./pages";
 import Layout from "./components/Layout";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -14,12 +23,19 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         {/* Protected Routes inside Layout */}
-        <Route element={<Layout />}>
+        <Route
+          element={
+            <RequireAuth>
+              <Layout />
+            </RequireAuth>
+          }
+        >
           <Route path="/" element={<Home />} />
-          <Route path="/request" element={<Request />} />
+          <Route path="/emergency" element={<EmergencyContactsPage />} />
           <Route path="/noticeboard" element={<Noticeboard />} />
-
-          {/* Add more protected routes here */}
+          <Route path="/bills" element={<BillsPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/maintenance" element={<MaintenancePage />} />
         </Route>
       </Routes>
     </BrowserRouter>

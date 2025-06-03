@@ -5,3 +5,4 @@ export * from "./HelpdeskIcon";
 export * from "./NoticeboardIcon";
 export * from "./ProfileIcon";
 export * from "./ResidentsIcon";
+export * from "./MaintenanceIcon";

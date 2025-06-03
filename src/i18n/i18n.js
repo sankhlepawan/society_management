@@ -1,6 +1,7 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
+import { Login } from "@/pages";
 
 const resources = {
   en: {
@@ -15,10 +16,13 @@ const resources = {
       app_name: "Solitaire Park",
       residents: "Residents",
       noticeboard: "Noticeboard",
-      bill: "Bill",
+      bills: "Bill",
       helpdesk: "Helpdesk",
       emergency: "Emergency No's",
       profile: "Profile",
+      maintenance: "Maintenance",
+      logout: "Logout",
+      dashboard: "Dashboard",
     },
   },
   hi: {
@@ -33,10 +37,13 @@ const resources = {
       app_name: "सॉलिटेयर पार्क",
       residents: "निवासी",
       noticeboard: "सूचना पट्ट",
-      bill: "बिल",
+      bills: "बिल",
       helpdesk: "सहायता केंद्र",
       emergency: "आपातकाल संपर्क",
       profile: "प्रोफ़ाइल",
+      maintenance: "रखरखाव",
+      logout: "लॉगआउट",
+      dashboard: "डैशबोर्ड",
     },
   },
 };

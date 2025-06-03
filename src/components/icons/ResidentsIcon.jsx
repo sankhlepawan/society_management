@@ -8,8 +8,8 @@ export const ResidentsIcon = () => (
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth={2}
-      d="M16 7a4 4 0 01-8 0M12 14a8 8 0 00-8 8h16a8 8 0 00-8-8z"
+      strokeWidth={1}
+      d="M16 11a4 4 0 01-8 0M12 18a8 8 0 00-8 8h16a8 8 0 00-8-8z"
     />
   </svg>
 );

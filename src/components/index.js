@@ -5,3 +5,7 @@ export { default as LanguageSwitcher } from "./LanguageSwitcher";
 export { default as Header } from "./Header";
 export { default as Footer } from "./Footer";
 export * from "./tilesData";
+export * from "./bills";
+export * from "./profile";
+export { default as RequireAuth } from "./RequireAuth";
+export * from "./maintenance";

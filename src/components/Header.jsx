@@ -2,24 +2,42 @@ import DarkModeToggle from "./DarkModeToggle";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import React from "react";
+import { useAuth } from "@/context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Header({ toggleSidebar }) {
   const { t } = useTranslation();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
   return (
     <header className="bg-white dark:bg-gray-800 shadow p-4 flex justify-between items-center">
       <button onClick={toggleSidebar} className="md:hidden">
         ☰
       </button>
-      <nav className="m-4">
+      {/* <nav className="m-4">
         <Link to="/">{t("home")}</Link>&nbsp;|&nbsp;
         <Link to="/login">{t("login")}</Link>&nbsp;|&nbsp;
         <Link to="/request">{t("request")}</Link>
-      </nav>
+      </nav> */}
+      <div></div>
 
       <div className="flex space-x-4 items-center">
         <LanguageSwitcher />
-        <DarkModeToggle />
+        {/* <DarkModeToggle /> */}
+        {user && (
+          <button
+            onClick={handleLogout}
+            className="bg-gray-200 dark:bg-gray-700 rounded px-3 py-1"
+          >
+            Logout
+          </button>
+        )}
       </div>
     </header>
   );
