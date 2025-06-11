@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Sidebar from "./Sidebar";
-import Header from "./Header";
+import { Sidebar, Header } from "@/src/components";
 import { Outlet } from "react-router-dom";
 
 export default function Layout() {
@@ -13,7 +12,7 @@ export default function Layout() {
       <Sidebar isOpen={sidebarOpen} toggleSidebar={toggleSidebar} />
       <div className="flex-1 ml-0 md:ml-64">
         <Header toggleSidebar={toggleSidebar} />
-        <main id="main-outlet" className="p-4 min-h-screen">
+        <main id="main-outlet" className="p-4 min-h-screen ">
           <Outlet />
         </main>
       </div>

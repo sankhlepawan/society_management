@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App.jsx";
 import "./i18n/i18n";
 import "react-toastify/dist/ReactToastify.css";
-import { AuthProvider } from "@/context/AuthContext";
+import { AuthProvider } from "@/src/context";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

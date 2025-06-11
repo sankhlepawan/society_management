@@ -1,4 +1,4 @@
-import { notices } from "@/data/notices";
+import { notices } from "@/src/data/notices";
 
 export default function Noticeboard() {
   return (

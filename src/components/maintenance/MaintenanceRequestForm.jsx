@@ -1,15 +1,11 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-
-const categories = [
-  "Electrical",
-  "Plumbing",
-  "Carpentry",
-  "Cleaning",
-  "Others",
-];
+import { useTranslation } from "react-i18next";
+import { categories } from "@/src/constant";
 
 export default function MaintenanceRequestForm({ onSubmit }) {
+  const { t } = useTranslation();
+
   const {
     register,
     handleSubmit,
@@ -22,18 +18,18 @@ export default function MaintenanceRequestForm({ onSubmit }) {
       onSubmit={handleSubmit(onSubmit)}
     >
       <h2 className="text-2xl mb-4 font-semibold">
-        Submit Maintenance Request
+        {t("submit_maintenance_request")}
       </h2>
 
-      <label className="block mb-1 font-medium">Category</label>
+      <label className="block mb-1 font-medium">{t("category")}</label>
       <select
         {...register("category", { required: true })}
         className="w-full mb-3 p-2 border rounded"
       >
-        <option value="">Select Category</option>
+        <option value="">{t("select_category")}</option>
         {categories.map((cat) => (
           <option key={cat} value={cat}>
-            {cat}
+            {t(cat)}
           </option>
         ))}
       </select>
@@ -41,22 +37,22 @@ export default function MaintenanceRequestForm({ onSubmit }) {
         <p className="text-red-500 text-sm mb-2">Category is required.</p>
       )}
 
-      <label className="block mb-1 font-medium">Description</label>
+      <label className="block mb-1 font-medium">{t("description")}</label>
       <textarea
         {...register("description", { required: true })}
         rows={4}
         className="w-full mb-3 p-2 border rounded"
-        placeholder="Describe the issue..."
+        placeholder={t("describe_the_issue")}
       ></textarea>
       {errors.description && (
-        <p className="text-red-500 text-sm mb-2">Description is required.</p>
+        <p className="text-red-500 text-sm mb-2">{t("description_required")}</p>
       )}
 
       <button
         type="submit"
         className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
       >
-        Submit Request
+        {t("submit")}
       </button>
     </form>
   );

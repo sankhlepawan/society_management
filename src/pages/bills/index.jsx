@@ -1,7 +1,6 @@
 import React from "react";
-import BillTable from "@/components/bills/BillTable";
-import BillCard from "@/components/bills/BillCard";
-import { bills } from "@/data/bills";
+import { BillTable, BillCard } from "@/src/components/bills";
+import { bills } from "@/src/data/bills";
 
 const BillsPage = () => {
   return (

@@ -9,3 +9,6 @@ export * from "./bills";
 export * from "./profile";
 export { default as RequireAuth } from "./RequireAuth";
 export * from "./maintenance";
+export * from "./residents";
+export { default as SearchBar } from "./SearchBar";
+export { default as EmergencyContactCard } from "./EmergencyContactCard";

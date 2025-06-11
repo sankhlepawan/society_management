@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   MaintenanceRequestForm,
   MaintenanceRequestsList,
-} from "@/components/maintenance";
+} from "@/src/components/maintenance";
 
 export default function MaintenancePage() {
   const [requests, setRequests] = useState([]);

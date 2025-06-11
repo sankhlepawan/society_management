@@ -1,8 +1,11 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function MaintenanceRequestsList({ requests }) {
+  const { t } = useTranslation();
+
   if (!requests.length) {
-    return <p className="text-center mt-4">No maintenance requests yet.</p>;
+    return <p className="text-center mt-4">{t("no_data")}</p>;
   }
 
   return (
@@ -16,7 +19,7 @@ export default function MaintenanceRequestsList({ requests }) {
             <h3 className="font-semibold">{category}</h3>
             <p>{description}</p>
             <small className="text-gray-500">
-              Submitted on {new Date(createdAt).toLocaleString()}
+              {t("submitted_on")} {new Date(createdAt).toLocaleString()}
             </small>
           </div>
           <div

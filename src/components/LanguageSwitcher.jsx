@@ -11,7 +11,7 @@ export default function LanguageSwitcher() {
   return (
     <button
       onClick={toggleLanguage}
-      className="bg-gray-200 dark:bg-gray-700 rounded px-3 py-1"
+      className="bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded px-3 py-1 cursor-pointer"
     >
       {i18n.language === "en" ? t("english") : t("hindi")}
     </button>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ProfileCard, ProfileForm } from "@/components";
+import { ProfileCard, ProfileForm } from "@/src/components";
 
 const ProfilePage = () => {
   const [user, setUser] = useState({

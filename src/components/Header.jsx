@@ -1,14 +1,16 @@
 import DarkModeToggle from "./DarkModeToggle";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import React from "react";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/src/context";
 import { useNavigate } from "react-router-dom";
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui";
 
 export default function Header({ toggleSidebar }) {
   const { t } = useTranslation();
   const { user, logout } = useAuth();
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -17,8 +19,8 @@ export default function Header({ toggleSidebar }) {
   };
   return (
     <header className="bg-white dark:bg-gray-800 shadow p-4 flex justify-between items-center">
-      <button onClick={toggleSidebar} className="md:hidden">
-        ☰
+      <button onClick={toggleSidebar} className="md:hidden cursor-pointer">
+        <Menu className="text-black dark:text-white" />
       </button>
       {/* <nav className="m-4">
         <Link to="/">{t("home")}</Link>&nbsp;|&nbsp;
@@ -28,15 +30,18 @@ export default function Header({ toggleSidebar }) {
       <div></div>
 
       <div className="flex space-x-4 items-center">
+        <div className="hidden sm:block mr-1 px-3 py-1 border-2 rounded-xl bg-gradient-to-r from-blue-500 to-blue-700 text-white">
+          {user.email}
+        </div>
         <LanguageSwitcher />
         {/* <DarkModeToggle /> */}
         {user && (
-          <button
+          <Button
             onClick={handleLogout}
-            className="bg-gray-200 dark:bg-gray-700 rounded px-3 py-1"
+            className="cursor-pointer text-white rounded px-3 py-1"
           >
-            Logout
-          </button>
+            {t("logout")}
+          </Button>
         )}
       </div>
     </header>

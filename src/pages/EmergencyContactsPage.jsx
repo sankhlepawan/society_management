@@ -1,7 +1,7 @@
 // src/pages/EmergencyContacts.jsx
 import React from "react";
-import EmergencyContactCard from "@/components/EmergencyContactCard";
-import { emergencyContacts } from "@/data/emergency";
+import { EmergencyContactCard } from "@/src/components";
+import { emergencyContacts } from "@/src/data/emergency";
 
 const EmergencyContactsPage = () => {
   return (
