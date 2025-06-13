@@ -3,3 +3,8 @@ export * from "./input";
 export * from "./card";
 export * from "./table";
 export * from "./label";
+export * from "./resizable";
+export * from "./select";
+export * from "./badge";
+export * from "./skeleton";
+export * from "./dropdown-menu";

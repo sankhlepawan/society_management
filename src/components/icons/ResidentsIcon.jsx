@@ -1,9 +1,11 @@
-export const ResidentsIcon = () => (
+export const ResidentsIcon = ({ width, height }) => (
   <svg
     className="w-10 h-10 text-blue-600 dark:text-blue-400"
     fill="none"
     viewBox="0 0 24 24"
     stroke="currentColor"
+    width={width}
+    height={height}
   >
     <path
       strokeLinecap="round"

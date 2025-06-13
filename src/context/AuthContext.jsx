@@ -1,30 +1,50 @@
 import React, { useContext, createContext, useEffect } from "react";
 import { supabase } from "@/src/utils";
 import { jwtDecode } from "jwt-decode";
+import { ROLE_SP_ADMIN } from "@/src/constant";
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = React.useState(null);
   const [role, setRole] = React.useState(null);
+  const [session, setSession] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
 
-  // ✅ Step 2: Get session on initial load
   useEffect(() => {
     const getSession = async () => {
       const { data, error } = await supabase.auth.getSession();
       const session = data?.session;
 
       if (session) {
-        const jwt = jwtDecode(session.access_token);
-        setUser(session.user);
-        setRole(jwt.user_role);
+        setUserSession(session);
       }
       setLoading(false);
     };
 
     getSession();
+
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setUser(session?.user || null);
+        setLoading(false);
+      },
+    );
+
+    return () => listener.subscription.unsubscribe();
   }, []);
+
+  const setUserSession = (session) => {
+    const jwt = jwtDecode(session.access_token);
+    setUser(session.user);
+    setRole(jwt.user_role);
+    setSession({
+      role: jwt.user_role,
+      isUserActive: jwt.user_metadata.isActive,
+      fullName: jwt.user_metadata.name,
+      isAdmin: jwt.user_role == ROLE_SP_ADMIN,
+    });
+  };
 
   const login = async (username, password) => {
     console.log("going to login...");
@@ -35,13 +55,13 @@ export const AuthProvider = ({ children }) => {
 
     if (error) {
       console.error("Login error:", error.message);
-      return false;
+      return error.message;
     }
 
-    console.log("Login success:", data);
+    // console.log("Login success:", data);
     // Your login logic
-    setUser({ username });
-    return true;
+    setUserSession(data.session);
+    return "Login success";
   };
 
   const logout = async () => {
@@ -55,23 +75,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signup = async (email, password) => {
-    const { data, error } = await supabase.auth.signUp({
+  const signup = async ({ email, password, name, phone }) => {
+    return await supabase.auth.signUp({
       email,
       password,
       options: {
         data: {
-          username: "your_username",
+          username: email,
+          isActive: false,
+          society_unit_id: 286, // this has to change on user input
+          name,
+          phone,
+          society_id: 1, // for now defulat is 1
         },
       },
     });
-
-    if (error) {
-      console.error("Sign up error:", error.message);
-      return;
-    }
-
-    console.log("Signup success:", data);
   };
 
   useEffect(() => {
@@ -95,7 +113,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, role, login, logout, signup, loading }}
+      value={{ user, role, login, logout, signup, loading, session }}
     >
       {children}
     </AuthContext.Provider>

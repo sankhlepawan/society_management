@@ -1,19 +1,34 @@
 import { useTranslation } from "react-i18next";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 
 export default function LanguageSwitcher() {
   const { i18n, t } = useTranslation();
 
-  const toggleLanguage = () => {
-    const newLang = i18n.language === "en" ? "hi" : "en";
-    i18n.changeLanguage(newLang);
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
   };
 
   return (
-    <button
-      onClick={toggleLanguage}
-      className="bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded px-3 py-1 cursor-pointer"
-    >
-      {i18n.language === "en" ? t("english") : t("hindi")}
-    </button>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="sm" className="text-sm">
+          🌐 {i18n.language.toUpperCase()}
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-24">
+        <DropdownMenuItem onClick={() => changeLanguage("en")}>
+          English
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => changeLanguage("hi")}>
+          हिन्दी
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

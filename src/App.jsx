@@ -15,6 +15,7 @@ import {
   ResidentsPage,
   AddResidentPage,
   RegisterPage,
+  InActiveAccountPage,
 } from "./pages";
 import Layout from "./components/Layout";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -40,6 +41,7 @@ function App() {
         {/* Public Route */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/inactive" element={<InActiveAccountPage />} />
 
         {/* Protected Routes inside Layout */}
         <Route

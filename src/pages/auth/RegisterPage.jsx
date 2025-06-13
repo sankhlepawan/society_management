@@ -12,17 +12,33 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui";
+import { LanguageSwitcher } from "@/src/components";
+
+import { useAuth } from "@/src/context/AuthContext";
 
 const RegisterPage = () => {
+  const [loading, setLoading] = React.useState(false);
+  const [authError, setAuthError] = React.useState(undefined);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Registration data:", data);
-    // TODO: Send data to backend or Firebase
+  const { signup } = useAuth();
+
+  const onSubmit = async (payload) => {
+    setLoading(true);
+    setAuthError(undefined);
+    const { data, error } = await signup(payload);
+    if (error) {
+      console.error("signOut up error:", error.message);
+    }
+    if (data) {
+      setLoading(false);
+      setAuthError(error.message);
+    }
   };
 
   const { t } = useTranslation();
@@ -40,33 +56,31 @@ const RegisterPage = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardHeader>
             <CardTitle>{t("society_member_registration")}</CardTitle>
-            {/* <CardDescription>
-              Enter your email below to login to your account
-            </CardDescription> */}
             <CardAction>
               <Button variant="link">
                 <Link to="/login" className="underline">
                   {t("login")}
                 </Link>
               </Button>
+              <LanguageSwitcher />
             </CardAction>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
-                <Label>Full Name</Label>
+                <Label>{t("full_name")}</Label>
                 <Input
                   id="fullname"
                   placeholder="eg. john doe"
                   required
-                  {...register("name", { required: "Name is required" })}
+                  {...register("name", { required: t("name_required") })}
                 />
                 {errors.name && (
                   <p className="text-red-500 text-sm">{errors.name.message}</p>
                 )}
               </div>
               <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t("email")}</Label>
                 <Input
                   id="email"
                   type="email"
@@ -79,11 +93,11 @@ const RegisterPage = () => {
                 )}
               </div>
               <div className="grid gap-2">
-                <Label>{t("flat_no")}</Label>
+                <Label>{t("house_no")}</Label>
                 <Input
                   placeholder="eg. 345"
                   required
-                  {...register("flat", { required: t("flat_no_required") })}
+                  {...register("house_no", { required: t("flat_no_required") })}
                 />
                 {errors.flat && (
                   <p className="text-red-500 text-sm">{errors.flat.message}</p>
@@ -107,7 +121,7 @@ const RegisterPage = () => {
               </div>
 
               <div className="grid gap-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t("password")}</Label>
                 <Input
                   {...register("password")}
                   id="password"
@@ -124,8 +138,10 @@ const RegisterPage = () => {
           </CardContent>
           <CardFooter className="flex-col gap-2 mt-3">
             <Button type="submit" className="w-full">
-              {t("submit")}
+              {t("submit")}{" "}
+              {loading && <Loader2Icon className="animate-spin" />}
             </Button>
+
             {/* <Button variant="outline" className="w-full">
             Login with Google
           </Button> */}
